@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad & Hussain Collection | Mavéro Lifestyle</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbrown: '#2C1810',
+                        deepbrown: '#1A0E0A',
+                        rosepink: '#E89CAE',
+                        softpink: '#FDF0F3',
+                        accentpink: '#D4758C',
+                        goldaccent: '#D4AF37'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #2C1810; }
+        ::-webkit-scrollbar-thumb { background: #E89CAE; border-radius: 4px; }
+
+        /* Keyframes Animations */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(232, 156, 174, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(232, 156, 174, 0.8); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .glow-effect { animation: pulseGlow 3s infinite; }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(44, 24, 16, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 156, 174, 0.2);
+        }
+
+        .modal-bg {
+            background: rgba(15, 8, 5, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Checkmark Animation */
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #4BB543;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="bg-deepbrown text-softpink font-sans overflow-x-hidden">
+
+    <!-- 1. PRELOADER (4.5 SECONDS) -->
+    <div id="preloader" class="fixed inset-0 z-50 bg-darkbrown flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="text-center p-6">
+            <h1 class="font-serif text-3xl md:text-5xl font-bold text-rosepink mb-2 tracking-widest animate-pulse">
+                MAVÉRO LIFESTYLE
+            </h1>
+            <p class="text-xs md:text-sm text-gray-300 tracking-widest uppercase mb-8"> BY<br> Ahmed and Hussain collection  </p>
+            
+            <!-- Pink & Dark Brown Progress Bar -->
+            <div class="w-64 md:w-80 h-3 bg-deepbrown rounded-full border border-rosepink/30 p-0.5 overflow-hidden relative">
+                <div id="loading-bar" class="h-full bg-gradient-to-r from-accentpink via-rosepink to-pink-300 rounded-full w-0 transition-all duration-[4500ms] cubic-bezier(0.1, 0, 0.1, 1)"></div>
+            </div>
+            <p id="loading-text" class="text-xs text-rosepink mt-3 font-mono">Loading Experience... 0%</p>
+        </div>
+    </div>
+
+    <!-- 2. NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 bg-darkbrown/95 backdrop-blur-md border-b border-rosepink/20 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo (Uploaded Image) -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <img src="our collection.png" alt="Ahmad & Hussain Collection" 
+                     onclick="openImageModal(this.src)"
+                     class="h-14 w-auto object-contain rounded border border-rosepink/30 shadow-md group-hover:scale-105 transition-transform"
+                     id="header-logo-img">
+                <div class="hidden sm:block">
+                    <span class="block font-serif text-lg font-bold text-rosepink tracking-wider"> MAVÉRO LIFESTYLE</span>
+                    <span class="block text-[10px] text-gray-400 tracking-widest">AHMAD & HUSSAIN</span>
+                </div>
+            </a>
+
+            <!-- Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-widest">
+                <a href="#home" class="hover:text-rosepink transition-colors font-medium">Home</a>
+                <a href="#collection" class="hover:text-rosepink transition-colors font-medium">Collection</a>
+                <a href="#how-to-order" class="hover:text-rosepink transition-colors font-medium">How To Order</a>
+                <a href="#faq" class="hover:text-rosepink transition-colors font-medium">FAQ</a>
+                <a href="#contact" class="hover:text-rosepink transition-colors font-medium">Contact</a>
+            </div>
+
+            <!-- Action Buttons: Order History & Cart -->
+            <div class="flex items-center gap-4">
+                <button onclick="openOrdersModal()" class="flex items-center gap-2 bg-transparent border border-rosepink text-rosepink hover:bg-rosepink hover:text-darkbrown px-3 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all duration-300">
+                    <i class="fa-solid font-bold fa-clock-rotate-left"></i>
+                    <span class="hidden sm:inline">Order History</span>
+                </button>
+                
+                <button onclick="toggleCartDrawer()" class="relative p-2 text-rosepink hover:text-white transition-colors">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-rosepink text-darkbrown font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center border border-darkbrown shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. HERO BANNER SECTION -->
+    <section id="home" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 bg-gradient-to-b from-darkbrown to-deepbrown">
+        <!-- Background Glow FX -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-rosepink/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-center lg:text-left">
+                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase bg-rosepink/20 text-rosepink border border-rosepink/30">
+                    Luxury Garments & Couture
+                </span>
+                <h1 class="font-['Poppins'] text-4xl sm:text-6xl font-bold text-white leading-tight">
+                    Elevate Your Style With <span class="text-rosepink italic">MAVÉRO LIFESTYLE</span>
+                </h1>
+                <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Discover luxury bespoke apparel curated with master craftsmanship. Premium fabrics, flawless fitting, and regal aesthetics tailored for exclusive occasions.
+                </p>
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#collection" class="bg-rosepink text-darkbrown hover:bg-white font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-rosepink/50 hover:scale-105">
+                        Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#how-to-order" class="border border-rosepink/50 hover:border-rosepink text-softpink px-8 py-4 rounded-full font-semibold transition-all">
+                        Learn Order Process
+                    </a>
+                </div>
+            </div>
+
+            <!-- Banner Visual Card -->
+            <div class="relative animate-float">
+                <div class="w-full h-[420px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-rosepink/30 relative glass-card p-4">
+                    <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Banner Garments" class="w-full h-full object-cover rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkbrown via-transparent to-transparent opacity-60 rounded-2xl"></div>
+                    <div class="absolute bottom-8 left-8 right-8 text-white">
+                        <p class="text-xs uppercase tracking-widest text-rosepink font-semibold">New Arrival 2026</p>
+                        <h3 class="font-serif text-2xl font-bold">Royal Velvet & Silk Collection</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COLLECTION SECTION (4 CARDS) -->
+    <section id="collection" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16 space-y-3">
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-rosepink">Featured Garments</h2>
+            <div class="w-24 h-1 bg-rosepink mx-auto rounded-full"></div>
+            <p class="text-gray-400 text-sm max-w-md mx-auto">Handcrafted tailored suits & designer traditional wear</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product Cards will be rendered dynamically by JavaScript -->
+            <div id="products-container" class="contents"></div>
+        </div>
+    </section>
+
+    <!-- 5. HOW TO ORDER SECTION -->
+    <section id="how-to-order" class="py-20 bg-darkbrown/60 border-y border-rosepink/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-rosepink">How To Order</h2>
+                <p class="text-gray-400 text-sm mt-2">Simple 4-step seamless shopping experience</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="glass-card p-6 rounded-2xl text-center relative border border-rosepink/20 hover:border-rosepink transition-all">
+                    <div class="w-14 h-14 bg-rosepink text-darkbrown font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">1</div>
+                    <h3 class="font-serif font-bold text-lg text-white mb-2">CHOOSE YOUR CLOTH</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Browse our collection and choose your best product </p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center relative border border-rosepink/20 hover:border-rosepink transition-all">
+                    <div class="w-14 h-14 bg-rosepink text-darkbrown font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">2</div>
+                    <h3 class="font-serif font-bold text-lg text-white mb-2">PLACE YOUR ORDER</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Click the Buy Now or Add To Cart button </p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center relative border border-rosepink/20 hover:border-rosepink transition-all">
+                    <div class="w-14 h-14 bg-rosepink text-darkbrown font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">3</div>
+                    <h3 class="font-serif font-bold text-lg text-white mb-2">Instant Processing</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Click Place Order and wait 5 seconds for secure confirmation.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center relative border border-rosepink/20 hover:border-rosepink transition-all">
+                    <div class="w-14 h-14 bg-rosepink text-darkbrown font-bold text-xl rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">4</div>
+                    <h3 class="font-serif font-bold text-lg text-white mb-2">Track Delivery</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Check Order History to monitor live 7-day countdown updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FAQ SECTION -->
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-rosepink">Frequently Asked Questions</h2>
+            <p class="text-gray-400 text-sm mt-2">Everything you need to know about our services</p>
+        </div>
+
+        <div class="space-y-4">
+            <div class="glass-card rounded-xl p-5 border border-rosepink/20 cursor-pointer" onclick="toggleFaq(1)">
+                <div class="flex justify-between items-center font-semibold text-white">
+                    <span>What is the average delivery timeframe?</span>
+                    <i id="faq-icon-1" class="fa-solid fa-chevron-down text-rosepink transition-transform"></i>
+                </div>
+                <p id="faq-ans-1" class="hidden text-gray-400 text-xs mt-3 leading-relaxed">All custom garments are tailored and dispatched within 6 to 7 business days across Pakistan.</p>
+            </div>
+            <div class="glass-card rounded-xl p-5 border border-rosepink/20 cursor-pointer" onclick="toggleFaq(2)">
+                <div class="flex justify-between items-center font-semibold text-white">
+                    <span>How can I track my placed orders?</span>
+                    <i id="faq-icon-2" class="fa-solid fa-chevron-down text-rosepink transition-transform"></i>
+                </div>
+                <p id="faq-ans-2" class="hidden text-gray-400 text-xs mt-3 leading-relaxed">Click on the "Order History" button in the navigation header to view real-time delivery status updates.</p>
+            </div>
+            <div class="glass-card rounded-xl p-5 border border-rosepink/20 cursor-pointer" onclick="toggleFaq(3)">
+                <div class="flex justify-between items-center font-semibold text-white">
+                    <span>Are Cash on Delivery (COD) services available?</span>
+                    <i id="faq-icon-3" class="fa-solid fa-chevron-down text-rosepink transition-transform"></i>
+                </div>
+                <p id="faq-ans-3" class="hidden text-gray-400 text-xs mt-3 leading-relaxed">Yes, we provide Nationwide Cash on Delivery options for all orders placed through the website.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CONTACT SECTION (FORMSPREE INTEGRATION) -->
+    <section id="contact" class="py-20 bg-darkbrown/80 border-t border-rosepink/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-rosepink">Get In Touch</h2>
+                <p class="text-gray-400 text-sm mt-2">Have custom size inquiries? Send us a message direct via Formspree.</p>
+            </div>
+
+            <form action="https://formspree.io/f/mykrogkv" method="POST" class="glass-card p-8 rounded-3xl border border-rosepink/30 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase font-semibold text-rosepink mb-2">Full Name</label>
+                        <input type="text" name="name" required placeholder="Ahmad Khan" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rosepink text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-semibold text-rosepink mb-2">Phone Number</label>
+                        <input type="tel" name="phone" required placeholder="03001234567" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rosepink text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase font-semibold text-rosepink mb-2">Email Address</label>
+                    <input type="email" name="email" required placeholder="client@example.com" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase font-semibold text-rosepink mb-2">Message / Custom Requirements</label>
+                    <textarea name="message" rows="4" required placeholder="Detail your sizing specs..." class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rosepink text-white"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-rosepink text-darkbrown font-bold py-4 rounded-xl hover:bg-white transition-all shadow-lg text-sm tracking-wider uppercase">
+                    Send Inquiry <i class="fa-solid fa-paper-plane ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-deepbrown border-t border-rosepink/10 py-8 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Ahmad & Hussain Collection (Mavéro Lifestyle). All Rights Reserved.</p>
+    </footer>
+
+    <!-- MODAL 1: PRODUCT DETAILS PAGE (SEE DETAILS) -->
+    <div id="product-modal" class="fixed inset-0 z-50 modal-bg hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-4xl w-full overflow-hidden relative border border-rosepink/40 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-darkbrown text-rosepink hover:text-white rounded-full flex items-center justify-center text-lg border border-rosepink/30">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-8">
+                <!-- Left: Product Image -->
+                <div class="h-80 md:h-[400px] rounded-2xl overflow-hidden border border-rosepink/20">
+                    <img id="modal-img" src="" alt="Garment" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Right: Product Info -->
+                <div class="flex flex-col justify-between space-y-6">
+                    <div>
+                        <span id="modal-tag" class="text-xs uppercase font-semibold tracking-widest text-rosepink bg-rosepink/10 px-3 py-1 rounded-full border border-rosepink/20">Luxury Edition</span>
+                        <h2 id="modal-title" class="font-serif text-3xl font-bold text-white mt-3">Product Name</h2>
+                        <p id="modal-price" class="text-2xl font-bold text-rosepink mt-2">PKR 0</p>
+                        <div class="w-full h-px bg-rosepink/20 my-4"></div>
+                        <p id="modal-desc" class="text-gray-300 text-sm leading-relaxed">Product description details...</p>
+                        <div class="mt-5">
+                            <label class="block text-xs uppercase font-semibold text-rosepink mb-2">Select Size</label>
+                            <select id="modal-size" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rosepink text-white">
+                                <option value="S">S</option>
+                                <option value="M" selected>M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                               
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-4">
+                        <button id="modal-buy-btn" class="w-full bg-rosepink text-darkbrown font-bold py-3.5 rounded-xl hover:bg-white transition-all uppercase tracking-wider text-xs">
+                            Buy Now
+                        </button>
+                        <button id="modal-cart-btn" class="w-full border border-rosepink text-rosepink font-bold py-3.5 rounded-xl hover:bg-rosepink hover:text-darkbrown transition-all uppercase tracking-wider text-xs">
+                            Add To Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: BUY NOW FORM MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 modal-bg hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-6 md:p-8 relative border border-rosepink/40 shadow-2xl">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-serif text-2xl font-bold text-rosepink mb-1">Shipping Details</h3>
+            <p class="text-xs text-gray-400 mb-6">Complete your order details below</p>
+
+            <form id="direct-checkout-form" action="https://formspree.io/f/mykrogkv" method="POST" class="space-y-4" onsubmit="handleDirectCheckout(event)">
+                <input type="hidden" id="checkout-product-id">
+                <input type="hidden" id="checkout-product-name" name="product">
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Name :</label>
+                    <input type="text" id="cust-name" name="name" required placeholder="Enter full name" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-rosepink mb-1 uppercase font-medium">City :</label>
+                        <input type="text" id="cust-city" name="city" required placeholder="Karachi / Lahore" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Quantity :</label>
+                        <input type="number" id="cust-qty" name="quantity" value="1" min="1" required class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Size :</label>
+                    <select id="cust-size" name="size" required class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                        <option value="">Select Size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Phone No :</label>
+                    <input type="tel" id="cust-phone" name="phone" required placeholder="03001234567" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Full Address :</label>
+                    <textarea id="cust-address" name="address" rows="3" required placeholder="House #, Street, Sector..." class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-rosepink text-darkbrown font-bold py-4 rounded-xl hover:bg-white transition-all uppercase tracking-wider text-xs shadow-lg mt-4">
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5-SECOND LOADING OVERLAY & SUCCESS TICK -->
+    <div id="order-loading-overlay" class="fixed inset-0 z-50 modal-bg hidden flex flex-col items-center justify-center p-4">
+        <div id="loader-spinner-container" class="flex flex-col items-center">
+            <div class="w-16 h-16 border-4 border-rosepink/20 border-t-rosepink rounded-full animate-spin mb-4"></div>
+            <p class="text-rosepink font-semibold text-sm tracking-widest animate-pulse">PROCESSING YOUR ORDER...</p>
+            <p class="text-xs text-gray-400 mt-2">Please wait 5 seconds while we verify details</p>
+        </div>
+
+        <div id="loader-success-container" class="hidden flex flex-col items-center text-center">
+            <svg class="w-20 h-20 mb-4" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <h3 class="text-2xl font-bold text-white font-serif mb-1">Order Placed Successfully!</h3>
+            <p class="text-xs text-rosepink">Redirecting you to Home & Order History...</p>
+        </div>
+    </div>
+
+    <!-- CART SIDE DRAWER (TROLLEY) -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md glass-card border-l border-rosepink/30 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b border-rosepink/20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping text-rosepink text-xl"></i>
+                <h3 class="font-serif font-bold text-lg text-white">Your Shopping Cart</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Dynamic Cart Items -->
+        </div>
+
+        <div class="p-6 border-t border-rosepink/20 bg-darkbrown/90 space-y-4">
+            <div class="flex justify-between text-base font-bold text-white">
+                <span>Total Amount:</span>
+                <span id="cart-total-price" class="text-rosepink">PKR 0</span>
+            </div>
+            <button onclick="openCartCheckoutModal()" class="w-full bg-rosepink text-darkbrown font-bold py-3.5 rounded-xl hover:bg-white transition-all uppercase tracking-wider text-xs">
+                Proceed To Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- CART CHECKOUT FORM MODAL -->
+    <div id="cart-checkout-modal" class="fixed inset-0 z-50 modal-bg hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-6 md:p-8 relative border border-rosepink/40 shadow-2xl">
+            <button onclick="closeCartCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-serif text-2xl font-bold text-rosepink mb-1">Cart Order Checkout</h3>
+            <p class="text-xs text-gray-400 mb-6">Enter details to complete cart order</p>
+
+            <form id="cart-checkout-form" action="https://formspree.io/f/xbjnqkyw" method="POST" class="space-y-4" onsubmit="handleCartCheckout(event)">
+                <input type="hidden" id="cart-order-details" name="order_details">
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Name :</label>
+                    <input type="text" id="cart-cust-name" name="name" required placeholder="Enter full name" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">City :</label>
+                    <input type="text" id="cart-cust-city" name="city" required placeholder="Karachi / Islamabad" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Phone No :</label>
+                    <input type="tel" id="cart-cust-phone" name="phone" required placeholder="03001234567" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white">
+                </div>
+                <div>
+                    <label class="block text-xs text-rosepink mb-1 uppercase font-medium">Full Address :</label>
+                    <textarea id="cart-cust-address" name="address" rows="3" required placeholder="Complete home address..." class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rosepink text-white"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-rosepink text-darkbrown font-bold py-4 rounded-xl hover:bg-white transition-all uppercase tracking-wider text-xs shadow-lg mt-4">
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: YOUR ORDERS HISTORY MODAL -->
+    <div id="orders-modal" class="fixed inset-0 z-50 modal-bg hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-3xl w-full p-6 md:p-8 relative border border-rosepink/40 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between pb-4 border-b border-rosepink/20">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-clock-rotate-left text-rosepink text-2xl"></i>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-white">Your Orders History</h3>
+                        <p class="text-xs text-gray-400">Live automatic 24-hour delivery status tracking</p>
+                    </div>
+                </div>
+                <button onclick="closeOrdersModal()" class="text-gray-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="orders-history-list" class="flex-1 overflow-y-auto py-6 space-y-4">
+                <!-- Orders will render here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. PRODUCTS DATA (4 GARMENT CARDS)
+        const products = [
+            {
+                id: 1,
+                name: "Royal Velvet Sherwani",
+                price: 125000,
+                image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80",
+                desc: "Hand-crafted deep maroon velvet sherwani adorned with intricate gold zardozi embroidery and custom brass buttons."
+            },
+            {
+                id: 2,
+                name: "Embroidered Silk Kurta Set",
+                price: 45000,
+                image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80",
+                desc: "Pure raw silk kurta with resham threadwork along collar, paired with tailored slim-fit raw silk trousers."
+            },
+            {
+                id: 3,
+                name: "Bespoke 3-Piece Tuxedo",
+                price: 185000,
+                image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+                desc: "Italian wool midnight black bespoke tuxedo featuring satin peak lapel and handcrafted inner satin lining."
+            },
+            {
+                id: 4,
+                name: "Designer Prince Coat",
+                price: 95000,
+                image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=800&q=80",
+                desc: "Contemporary structured prince coat with subtle embossed floral patterns and tailored fit."
+            }
+        ];
+
+        // State Management
+        let cart = JSON.parse(localStorage.getItem('ah_cart')) || [];
+        let orders = JSON.parse(localStorage.getItem('ah_orders')) || [];
+
+        // 2. PRELOADER (4.5 SECONDS)
+        window.addEventListener('DOMContentLoaded', () => {
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingText = document.getElementById('loading-text');
+            const preloader = document.getElementById('preloader');
+
+            // Trigger animation width
+            setTimeout(() => { loadingBar.style.width = '100%'; }, 50);
+
+            // Dynamic % Counter
+            let percent = 0;
+            const interval = setInterval(() => {
+                percent += 2;
+                if (percent > 100) percent = 100;
+                loadingText.innerText = `Loading Experience... ${percent}%`;
+                if (percent === 100) clearInterval(interval);
+            }, 80);
+
+            // Hide after 4.5 seconds (4500ms)
+            setTimeout(() => {
+                preloader.classList.add('opacity-0');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 700);
+            }, 4500);
+
+            renderProducts();
+            updateCartBadge();
+        });
+
+        // 3. RENDER PRODUCTS
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = products.map(product => `
+                <div class="glass-card rounded-2xl overflow-hidden border border-rosepink/20 hover:border-rosepink transition-all duration-300 flex flex-col group">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkbrown via-transparent to-transparent opacity-40"></div>
+                        <span class="absolute top-3 right-3 bg-darkbrown/80 border border-rosepink/40 text-rosepink text-xs px-3 py-1 rounded-full font-bold">
+                            PKR ${product.price.toLocaleString()}
+                        </span>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-white group-hover:text-rosepink transition-colors">${product.name}</h3>
+                            <p class="text-xs text-gray-400 mt-2 line-clamp-2">${product.desc}</p>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <div>
+                                <label class="block text-[10px] uppercase font-semibold text-rosepink mb-1">Select Size</label>
+                                <select id="size-${product.id}" class="w-full bg-deepbrown border border-rosepink/30 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-rosepink text-white">
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                   
+                                </select>
+                            </div>
+                            <!-- Button 1: See Details -->
+                            <button onclick="openProductModal(${product.id})" class="w-full bg-transparent border border-rosepink/50 text-rosepink hover:bg-rosepink hover:text-darkbrown py-2 rounded-xl text-xs font-semibold transition-all">
+                                <i class="fa-solid fa-eye mr-1"></i> See Details
+                            </button>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <!-- Button 2: Buy Now -->
+                                <button onclick="triggerBuyNow(${product.id}, document.getElementById('size-${product.id}').value)" class="bg-rosepink text-darkbrown hover:bg-white py-2 rounded-xl text-xs font-bold transition-all">
+                                    Buy Now
+                                </button>
+                                <!-- Button 3: Add to Cart -->
+                                <button onclick="addToCart(${product.id}, document.getElementById('size-${product.id}').value)" class="bg-darkbrown border border-rosepink/40 text-white hover:border-rosepink py-2 rounded-xl text-xs font-semibold transition-all">
+                                    + Add To Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 4. PRODUCT MODAL (SEE DETAILS)
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            document.getElementById('modal-img').src = product.image;
+            document.getElementById('modal-title').innerText = product.name;
+            document.getElementById('modal-price').innerText = `PKR ${product.price.toLocaleString()}`;
+            document.getElementById('modal-desc').innerText = product.desc;
+            document.getElementById('modal-size').value = 'M';
+
+            document.getElementById('modal-buy-btn').onclick = () => {
+                closeProductModal();
+                triggerBuyNow(product.id, document.getElementById('modal-size').value);
+            };
+
+            document.getElementById('modal-cart-btn').onclick = () => {
+                addToCart(product.id, document.getElementById('modal-size').value);
+                closeProductModal();
+            };
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // 5. BUY NOW & 5-SECOND LOADING OVERLAY LOGIC
+        function triggerBuyNow(productId, size = 'M') {
+            document.getElementById('checkout-product-id').value = productId;
+            document.getElementById('cust-size').value = size;
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        async function handleDirectCheckout(e) {
+            e.preventDefault();
+            const form = e.target;
+            const prodId = parseInt(document.getElementById('checkout-product-id').value);
+            const product = products.find(p => p.id === prodId);
+            const qty = parseInt(document.getElementById('cust-qty').value);
+            const size = document.getElementById('cust-size').value;
+
+            document.getElementById('checkout-product-name').value = product.name;
+
+            const orderData = {
+                id: Date.now(),
+                productName: product.name,
+                productImage: product.image,
+                price: product.price * qty,
+                quantity: qty,
+                size: size,
+                timestamp: Date.now()
+            };
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) throw new Error('Formspree submission failed');
+
+                closeCheckoutModal();
+                startOrderProcess(orderData);
+            } catch (error) {
+                alert('Order submit nahi ho saka. Please dobara try karein.');
+            }
+        }
+
+        function startOrderProcess(orderData) {
+            const overlay = document.getElementById('order-loading-overlay');
+            const spinner = document.getElementById('loader-spinner-container');
+            const success = document.getElementById('loader-success-container');
+
+            overlay.classList.remove('hidden');
+            spinner.classList.remove('hidden');
+            success.classList.add('hidden');
+
+            // 5 Seconds Loading Delay
+            setTimeout(() => {
+                spinner.classList.add('hidden');
+                success.classList.remove('hidden');
+
+                // Save to Orders
+                orders.push(orderData);
+                localStorage.setItem('ah_orders', JSON.stringify(orders));
+
+                // Wait 1.5 seconds on success checkmark then redirect to Home & Open History
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                    window.location.hash = '#home';
+                    openOrdersModal();
+                }, 1500);
+
+            }, 5000);
+        }
+
+        // 6. CART TROLLEY LOGIC
+        function addToCart(productId, size = 'M') {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId && item.size === size);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, size: size, qty: 1 });
+            }
+
+            saveCart();
+            toggleCartDrawer(true);
+        }
+
+        function changeCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            saveCart();
+            renderCartItems();
+        }
+
+        function saveCart() {
+            localStorage.setItem('ah_cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-badge').innerText = totalQty;
+        }
+
+        function toggleCartDrawer(openOnly = false) {
+            const drawer = document.getElementById('cart-drawer');
+            if (openOnly) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.toggle('translate-x-full');
+            }
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            const totalEl = document.getElementById('cart-total-price');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-xs py-10">Your cart is empty.</p>`;
+                totalEl.innerText = `PKR 0`;
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                total += item.price * item.qty;
+                return `
+                    <div class="flex items-center justify-between bg-deepbrown/60 p-3 rounded-xl border border-rosepink/20">
+                        <img src="${item.image}" class="w-14 h-14 object-cover rounded-lg">
+                        <div class="flex-1 px-3">
+                            <h4 class="text-xs font-bold text-white">${item.name}</h4>
+                            <p class="text-xs text-rosepink">Size: ${item.size || 'M'} | PKR ${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center border border-rosepink/40 rounded-lg overflow-hidden">
+                            <button onclick="changeCartQty(${item.id}, -1)" class="px-2 py-1 text-xs text-rosepink hover:bg-rosepink hover:text-darkbrown">-</button>
+                            <span class="px-2 text-xs font-bold text-white">${item.qty}</span>
+                            <button onclick="changeCartQty(${item.id}, 1)" class="px-2 py-1 text-xs text-rosepink hover:bg-rosepink hover:text-darkbrown">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = `PKR ${total.toLocaleString()}`;
+        }
+
+        function openCartCheckoutModal() {
+            if (cart.length === 0) return alert('Cart is empty!');
+            toggleCartDrawer();
+            document.getElementById('cart-checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCartCheckoutModal() {
+            document.getElementById('cart-checkout-modal').classList.add('hidden');
+        }
+
+        async function handleCartCheckout(e) {
+            e.preventDefault();
+            const form = e.target;
+
+            const orderDetails = cart.map(item =>
+                `${item.name} | Size: ${item.size || 'M'} | Qty: ${item.qty} | Total: PKR ${(item.price * item.qty).toLocaleString()}`
+            ).join('\n');
+
+            document.getElementById('cart-order-details').value = orderDetails;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) throw new Error('Formspree submission failed');
+
+                closeCartCheckoutModal();
+
+                // Create orders for items in cart
+                cart.forEach(item => {
+                    orders.push({
+                        id: Date.now() + Math.random(),
+                        productName: item.name,
+                        productImage: item.image,
+                        price: item.price * item.qty,
+                        quantity: item.qty,
+                        size: item.size || 'M',
+                        timestamp: Date.now()
+                    });
+                });
+
+                cart = [];
+                saveCart();
+                localStorage.setItem('ah_orders', JSON.stringify(orders));
+
+                startOrderProcess({ dummy: true });
+            } catch (error) {
+                alert('Order submit nahi ho saka. Please dobara try karein.');
+            }
+        }
+
+        // 7. ORDER HISTORY & 24-HOUR COUNTDOWN ENGINE
+        function openOrdersModal() {
+            renderOrdersHistory();
+            document.getElementById('orders-modal').classList.remove('hidden');
+        }
+
+        function closeOrdersModal() {
+            document.getElementById('orders-modal').classList.add('hidden');
+        }
+
+        /*
+           Delivery Status Algorithm:
+           0 - 24 hrs : 6-7 days
+           24 - 48 hrs: 5-6 days
+           48 - 72 hrs: 4-5 days
+           72 - 96 hrs: 3-4 days
+           96 - 120 hrs: 2-3 days
+           120 - 144 hrs: 1-2 days
+           144 - 168 hrs: soon
+           > 168 hrs: Remove product (Delivered)
+        */
+        function getDeliveryStatus(timestamp) {
+            const now = Date.now();
+            const elapsedHours = (now - timestamp) / (1000 * 60 * 60);
+
+            if (elapsedHours < 24) return { status: "Your order delivered 6-7 days", remove: false };
+            if (elapsedHours < 48) return { status: "5-6 days", remove: false };
+            if (elapsedHours < 72) return { status: "4-5 days", remove: false };
+            if (elapsedHours < 96) return { status: "3-4 days", remove: false };
+            if (elapsedHours < 120) return { status: "2-3 days", remove: false };
+            if (elapsedHours < 144) return { status: "1-2 days", remove: false };
+            if (elapsedHours < 168) return { status: "soon", remove: false };
+            return { status: "Delivered", remove: true };
+        }
+
+        function renderOrdersHistory() {
+            const container = document.getElementById('orders-history-list');
+            
+            // Clean expired orders
+            orders = orders.filter(ord => !getDeliveryStatus(ord.timestamp).remove);
+            localStorage.setItem('ah_orders', JSON.stringify(orders));
+
+            if (orders.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-400 text-xs py-10">No active orders found.</p>`;
+                return;
+            }
+
+            container.innerHTML = orders.map(ord => {
+                const info = getDeliveryStatus(ord.timestamp);
+                return `
+                    <div class="flex items-center justify-between bg-deepbrown p-4 rounded-2xl border border-rosepink/30">
+                        <div class="flex items-center gap-4">
+                            <img src="${ord.productImage}" class="w-16 h-16 object-cover rounded-xl border border-rosepink/20">
+                            <div>
+                                <h4 class="font-serif font-bold text-white text-sm">${ord.productName}</h4>
+                                <p class="text-xs text-gray-400">Size: ${ord.size || 'M'} | Qty: ${ord.quantity} | Total: PKR ${ord.price.toLocaleString()}</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold px-2.5 py-1 rounded-full bg-rosepink/20 text-rosepink border border-rosepink/40 uppercase">
+                                    <i class="fa-solid fa-truck-fast mr-1"></i> ${info.status}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // FAQ Toggle Accordion
+        function toggleFaq(id) {
+            const ans = document.getElementById(`faq-ans-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            ans.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        function openImageModal(src) {
+            window.open(src, '_blank');
+        }
+    </script>
+</body>
+</html>
